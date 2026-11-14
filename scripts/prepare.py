@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+MAX_INJECTION_CHARS = 5000  # 긴 문맥 혼합·다국어 공격 실습 허용 (문자 수)
 
 
 def read_json(path):
@@ -31,8 +32,14 @@ def make_samples(cases, attacks):
         aid, target, injection = attack["attack_id"], attack["target_case_id"], attack["injection"]
         if not isinstance(aid, str) or not re.fullmatch(r"A\d{2}", aid) or aid in seen_attacks:
             raise ValueError(f"잘못된/중복 attack_id: {aid}")
-        if target not in lookup or not isinstance(injection, str) or not injection.strip() or len(injection) > 1000:
-            raise ValueError(f"잘못된 공격: {aid}")
+        if not isinstance(target, str) or target not in lookup:
+            raise ValueError(f"{aid}: target_case_id={target!r}가 shared/cases.json에 없습니다")
+        if not isinstance(injection, str):
+            raise ValueError(f"{aid}: injection은 문자열이어야 합니다 (실제 유형: {type(injection).__name__})")
+        if not injection.strip():
+            raise ValueError(f"{aid}: injection이 비어 있습니다")
+        if len(injection) > MAX_INJECTION_CHARS:
+            raise ValueError(f"{aid}: injection 길이가 제한 초과입니다 ({len(injection)}자 > {MAX_INJECTION_CHARS}자)")
         seen_attacks.add(aid)
         samples.append({"sample_id": f"{target}.attack.{aid}", "text": lookup[target] + "\n\n" + injection})
     return samples
