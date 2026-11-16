@@ -6,8 +6,8 @@
 최종 승인은 사용자에게 남겨 둠.
 
 ## 변경 범위
-신규: \`website/index.html\`, \`website/test_site.py\`, \`website/README.md\`, \`website/HANDOFF.md\`.
-기존 공격·방어·평가 실습 파일 및 GitHub \`main\`은 수정 금지.
+신규: `website/index.html`, `website/test_site.py`, `website/README.md`, `website/HANDOFF.md`.
+기존 공격·방어·평가 실습 파일 및 GitHub `main`은 수정 금지.
 
 ## 역할 분리
 - 총괄(ChatGPT): 요구사항·범위·검증 기준 관리
@@ -18,12 +18,12 @@
 ## 확인하지 못한 항목
 - 사용자의 WSL에서 Codex AI 팀이 실제로 개발했다는 증거 없음
 - WSL 연결 장애로 로컬 Chrome/Edge 브라우저 렌더링 미확인
-- \`main\` 병합·실제 배포 없음
+- `main` 병합·실제 배포 없음
 
 ## 재개 지점
-1. 브랜치 \`feat/security-lab-landing-20261116\`과 PR 변경 파일 확인
+1. 브랜치 `feat/security-lab-landing-20261116`과 PR 변경 파일 확인
 2. 기존 파일 수정 여부 점검
-3. \`python3 -m unittest discover -s website -p 'test_site.py' -v\` 실행
+3. `python3 -m unittest discover -s website -p 'test_site.py' -v` 실행
 4. 모바일 390px, 데스크톱 1440px 및 키보드 포커스 수동 점검
 5. 실제 로그 확인 후 승인 여부 결정
 
